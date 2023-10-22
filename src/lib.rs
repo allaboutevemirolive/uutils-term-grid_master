@@ -411,7 +411,21 @@ impl Display<'_> {
 impl fmt::Display for Display<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         let separator = match &self.grid.options.filling {
-            Filling::Spaces(n) => " ".repeat(*n),
+
+            // Use a TAB character instead of two or more spaces whenever possible.
+            Filling::Spaces(n) => {
+                if n % 2 == 0 {
+                    // println!("{} is an even number", n);
+
+                    " ".to_string().repeat(*n)
+                } else {
+                    // println!("{} is an odd number", n);
+
+                    " ".to_string().repeat(*n)
+                }
+            }
+            
+            // " ".repeat(*n),
             Filling::Text(s) => s.clone(),
         };
 
