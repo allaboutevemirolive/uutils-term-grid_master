@@ -181,9 +181,6 @@ pub struct GridOptions {
 
     /// The number of spaces to put in between each column of cells.
     pub filling: Filling,
-
-    /// The size of the tab field based on space (default: 8 spaces).
-    pub tab_size: i32,
 }
 
 #[derive(PartialEq, Eq, Debug)]
@@ -418,13 +415,8 @@ impl fmt::Display for Display<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         let separator = match &self.grid.options.filling {
             Filling::Spaces(n) => {
-                if self.grid.options.tab_size <= 0 {
-                    " ".to_string().repeat(*n)
-                } else {
-                    let tab_count = n / self.grid.options.tab_size as usize;
-                    let remaining_spaces = n % self.grid.options.tab_size as usize;
-                    "\t".repeat(tab_count) + &" ".repeat(remaining_spaces)
-                }
+                // Calculate tab count and remaining spaces
+                "\t".repeat(n / 8) + &" ".repeat(n % 8)
             }
             Filling::Text(s) => s.clone(),
         };
