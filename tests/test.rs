@@ -334,7 +334,7 @@ nine			      ten			      eleven			      twelve
     }
 
     #[test]
-    fn zero_tab_size() {
+    fn six_tabs_two_spaces() {
 
         let mut grid = Grid::new(GridOptions {
             filling: Filling::Spaces(30),
@@ -350,56 +350,14 @@ nine			      ten			      eleven			      twelve
 
         let display = grid.fit_into_width(150).unwrap();
 
+        assert_eq!(
+            r"one 						  two						  three 						  four
+five						  six						  seven 						  eight
+nine						  ten						  eleven						  twelve
+",
+            display.to_string()
+        );
+
     }
 
-
-//     #[test]
-//     fn zero_tab_size() {
-//         let mut grid = Grid::new(GridOptions {
-//             filling: Filling::Spaces(3),
-//             direction: Direction::LeftToRight,
-//         });
-
-//         for s in &[
-//             "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-//             "eleven", "twelve",
-//         ] {
-//             grid.add(Cell::from(*s));
-//         }
-
-//         let display = grid.fit_into_width(24).unwrap();
-
-//         assert_eq!(
-//             r"one     two      three
-// four    five     six
-// seven   eight    nine
-// ten     eleven   twelve
-// ",
-//             display.to_string()
-//         );
-//     }
-
-//     #[test]
-//     fn negative_tab_size() {
-//         let mut grid = Grid::new(GridOptions {
-//             filling: Filling::Spaces(2),
-//             direction: Direction::LeftToRight,
-//         });
-
-//         for s in &[
-//             "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-//             "eleven", "twelve",
-//         ] {
-//             grid.add(Cell::from(*s));
-//         }
-
-//         let display = grid.fit_into_width(24).unwrap();
-//         assert_eq!(
-//             r"one           two          three           four
-// five          six          seven           eight
-// nine          ten          eleven          twelve
-// ",
-//             display.to_string()
-//         );
-//     }
 }
